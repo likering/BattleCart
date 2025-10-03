@@ -15,14 +15,14 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
     int targetLane;
 
-    public float gravity = 9.8f;
+    public float gravity = 9.81f;//重力
 
-    public float speedZ = 10;
-    public float accelerationZ = 8;
+    public float speedZ = 10;//前進方向のスピードの上限値
+    public float accelerationZ = 8;//加速度
 
-    public float speedX = 10;
+    public float speedX = 10;//横方向に移動するときのスピード
 
-    public float speedJump = 10;
+    public float speedJump = 10;//ジャンプスピード
 
     public GameObject body;
 
@@ -31,47 +31,55 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        //ゲームステータスがplayingの時のみ左右に動かせる
         controller = GetComponent<CharacterController>();
     }
 
     void Update()
-    { 
+    {
         if (GameManager.gameState == GameState.playing)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) MoveToLeft();
-            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A)) MoveToRight();
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) MoveToRight();
             if (Input.GetKeyDown(KeyCode.Space)) Jump();
         }
 
-        if(IsStun())
+        //もしスタン中かLifeが０なら動きを止める
+        if (IsStun())
         {
             moveDirection.x = 0;
             moveDirection.z = 0;
 
-            recoverTime = Time.deltaTime;
+            //復活までの時間をカウント
+            recoverTime -= Time.deltaTime;
 
+            //点滅処理
             Blinking();
         }
         else
         {
-            float acceleratedZ = moveDirection.z+ (accelerationZ* Time.deltaTime);   
+            //徐々に加速しｚ方向に常に前進させる
+            float acceleratedZ = moveDirection.z + (accelerationZ * Time.deltaTime);
             moveDirection.z = Mathf.Clamp(acceleratedZ, 0, speedZ);
 
-            float ratioX =(targetLane * LaneWidth - transform.position.x)/LaneWidth;
+            //ｘ方向は目標のポジションまでの差分の割合で速度を計算
+            float ratioX = (targetLane * LaneWidth - transform.position.x) / LaneWidth;
             moveDirection.x = ratioX * speedX;
-
-
 
         }
 
-        moveDirection.y =gravity * Time.deltaTime;
+        //重力分の力をフレーム追加
+        moveDirection.y -= gravity * Time.deltaTime;
 
+        //移動実行
         Vector3 globalDirection = transform.TransformDirection(moveDirection);
-        controller.Move(globalDirection* Time.deltaTime);
+        controller.Move(globalDirection * Time.deltaTime);
 
-        if(controller.isGrounded)moveDirection.y = 0;
+        //移動後接地してたらｙ方向の速度はリセットする
+        if (controller.isGrounded) moveDirection.y = 0;
     }
 
+    //左のレーンに移動を開始
     public void MoveToLeft()
     {
         if (IsStun()) return;
@@ -79,6 +87,7 @@ public class PlayerController : MonoBehaviour
             targetLane--;
 
     }
+    //右のレーンに移動を開始
     public void MoveToRight()
     {
         if (IsStun()) return;
@@ -86,50 +95,65 @@ public class PlayerController : MonoBehaviour
             targetLane++;
 
     }
+    //ジャンプ
     public void Jump()
     {
         if (IsStun()) return;
-        if (controller.isGrounded) moveDirection.y =speedJump;
+        if (controller.isGrounded) moveDirection.y = speedJump;
 
     }
+    //体力をリターン
     public int Life()
     {
         return life;
 
     }
+    //スタン中かチェック
     bool IsStun()
     {
+        //recoverTimeが作動中かLifeが０になった場合はStunフラグがオン
         bool stun = recoverTime > 0.0f || life <= 0;
 
+        //Stunフラグがオフの場合はボディを確実に表示
         if (!stun) body.SetActive(true);
-
+        
+        //Stunフラグをリターン
         return stun;
 
     }
 
+    //接触判定
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (IsStun()) return;
 
+        //ぶつかった相手がEnemyなら
         if (hit.gameObject.CompareTag("Enemy"))
         {
+            //体力をマイナス
             life--;
 
-            if(life <= 0)
+            if (life <= 0)
             {
                 GameManager.gameState = GameState.gameover;
-                Instantiate(boms, transform.position, Quaternion.identity);
-                Destroy(gameObject, 0.5f);
+                Instantiate(boms, transform.position, Quaternion.identity);//爆発エフェクトの発生
+                Destroy(gameObject, 0.5f);//少しの時間差で自分を消滅
 
             }
+            //recoverTimeの時間を設定
             recoverTime = StunDuration;
+            //接触したEnemyを削除
             Destroy(hit.gameObject);
         }
     }
-   void Blinking()
+    //点滅処理
+    void Blinking()
     {
-        float val = Mathf.Sin(Time.time*50);
-        if (val >= 0)body.SetActive(true);
+        //その時のゲーム進行時間で正か負かの値を算出
+        float val = Mathf.Sin(Time.time * 50);
+        //正の周期なら表示
+        if (val >= 0) body.SetActive(true);
+        //負の周期なら非表示
         else body.SetActive(false);
     }
 }
