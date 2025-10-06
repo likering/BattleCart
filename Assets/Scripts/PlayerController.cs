@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     const int MinLane = -2;
-    const int maxLane = 2;
+    const int MaxLane = 2;
     const float LaneWidth = 6.0f;
     const float StunDuration = 0.5f;
     float recoverTime = 0.0f;
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
     public void MoveToRight()
     {
         if (IsStun()) return;
-        if (controller.isGrounded && targetLane < maxLane)
+        if (controller.isGrounded && targetLane < MaxLane)
             targetLane++;
 
     }

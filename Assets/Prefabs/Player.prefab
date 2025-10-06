@@ -159,6 +159,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ca8953eb991b794bae827f48c7a852d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  life: 10
+  gravity: 9.8
+  speedZ: 10
+  accelerationZ: 8
+  speedX: 10
+  speedJump: 10
+  body: {fileID: 3818634270436332924, guid: a8d95c348b008504cb96765759f0de5f, type: 3}
+  boms: {fileID: 0}
 --- !u!1001 &3936577000845699955
 PrefabInstance:
   m_ObjectHideFlags: 0

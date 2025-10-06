@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6001888362862412895}
   - component: {fileID: 1031245707263218067}
   - component: {fileID: 5598258725337244339}
+  - component: {fileID: 3208927457222272302}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -82,6 +83,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.2, z: 0}
+--- !u!114 &3208927457222272302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757880087488097017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ac609717ccd194bb5247da040e60e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 9.81
+  speedZ: -10
+  accelerationZ: -8
+  deletePosY: -10
+  useGravity: 1
 --- !u!1001 &6233720269521241585
 PrefabInstance:
   m_ObjectHideFlags: 0
