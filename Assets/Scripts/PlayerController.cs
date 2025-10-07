@@ -189,13 +189,13 @@ public class PlayerController : MonoBehaviour
         switch (type)
         {
             case SEType.Shot:
-                audio.PlayOneShot(se_shot);
+                audio.PlayOneShot(Se_shot);
                 break;
             case SEType.Damage:
-                audio.PlayOneShot(se_damage);
+                audio.PlayOneShot(Se_damege);
                 break;
             case SEType.Jump:
-                audio.PlayOneShot(se_jump);
+                audio.PlayOneShot(Se_jump);
                 break;
         }
     }

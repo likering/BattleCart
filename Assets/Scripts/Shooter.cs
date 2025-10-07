@@ -58,6 +58,7 @@ public class Shooter : MonoBehaviour
         if (player == null || shotPower <= 0) return;
 
         playerCnt.SEPlay(SEType.Shot);
+
         //プレイヤーの位置にBulletを生成
         GameObject obj = Instantiate(bulletPrefab, gate.transform.position, Quaternion.identity);
         //生成したBulletのRigidbodyを取得
