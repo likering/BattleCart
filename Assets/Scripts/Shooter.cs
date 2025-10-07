@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
 
@@ -12,13 +11,16 @@ public class Shooter : MonoBehaviour
 
     bool possibleShoot;//ショット可能フラグ
 
-    public int shotPower = 10;//残数
+    public int shotPower = 5;//残数
     public int recoverySeconds = 3;//回復時間
 
     Camera cam;//カメラ情報の取得
 
+    PlayerController playerCnt;
+
     void Start()
     {
+        playerCnt = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         //時間差でシュート可能にする
         Invoke("ShootEnabled", 0.5f);
 
@@ -54,6 +56,8 @@ public class Shooter : MonoBehaviour
     {
         //プレイヤーが消滅していなければ
         if (player == null || shotPower <= 0) return;
+
+        playerCnt.SEPlay(SEType.Shot);
         //プレイヤーの位置にBulletを生成
         GameObject obj = Instantiate(bulletPrefab, gate.transform.position, Quaternion.identity);
         //生成したBulletのRigidbodyを取得

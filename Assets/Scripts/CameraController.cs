@@ -2,43 +2,37 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    Vector3 diff;//ƒ^[ƒQƒbƒg‚Æ‚È‚é‹——£‚Ì·
-    GameObject player;//ƒ^[ƒQƒbƒg‚Æ‚È‚éƒvƒŒƒCƒ„[î•ñ
+    Vector3 diff;//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ãªã‚‹è·é›¢ã®å·®
+    GameObject player;//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ãªã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±
 
-    public float followSpeed = 8;//ƒJƒƒ‰‚Ì•âŠÔƒXƒs[ƒh
+    public float followSpeed = 8;//ã‚«ãƒ¡ãƒ©ã®è£œé–“ã‚¹ãƒ”ãƒ¼ãƒ‰
 
-    //ƒJƒƒ‰‚Ì‰ŠúˆÊ’u
+    //ã‚«ãƒ¡ãƒ©ã®åˆæœŸä½ç½®
     public Vector3 defaultPos = new Vector3(0, 6, -6);
     public Vector3 defaultRotate = new Vector3(12, 0, 0);
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //ƒJƒƒ‰‚ğ•Ï”‚ÅŒˆ‚ß‚½‰ŠúˆÊ’uEŠp“x‚É‚·‚é
+        //ã‚«ãƒ¡ãƒ©ã‚’å¤‰æ•°ã§æ±ºã‚ãŸåˆæœŸä½ç½®ãƒ»è§’åº¦ã«ã™ã‚‹
         transform.position = defaultPos;
         transform.rotation = Quaternion.Euler(defaultRotate);
 
-        //ƒvƒŒƒCƒ„[î•ñ‚Ìæ“¾
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±ã®å–å¾—
         player = GameObject.FindGameObjectWithTag("Player");
         
-        //ƒvƒŒƒCƒ„[‚ÆƒJƒƒ‰‚Ì‹——£Š´‚ğ‹L‰¯‚µ‚Ä‚¨‚­
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚«ãƒ¡ãƒ©ã®è·é›¢æ„Ÿã‚’è¨˜æ†¶ã—ã¦ãŠã
         diff = player.transform.position - transform.position;
     }
-    private void LateUpdate()//Update‚æ‚èŒã‚É“­‚­‚à‚Ì
+    private void LateUpdate()//Updateã‚ˆã‚Šå¾Œã«åƒãã‚‚ã®
     {
-        //ƒvƒŒƒCƒ„[‚ªŒ©‚Â‚©‚ç‚È‚¯‚ê‚Î‰½‚à‚µ‚È‚¢
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°ä½•ã‚‚ã—ãªã„
         if (player == null) return;
 
-        //üŒ`•âŠÔ‚ğg‚Á‚ÄAƒJƒƒ‰‚ğ–Ú“I‚ÌêŠ‚É“®‚©‚·
-        //Lerpƒƒ\ƒbƒhi¡‚ÌˆÊ’uAƒS[ƒ‹‚Æ‚·‚×‚«ˆÊ’uAŠ„‡j
+        //ç·šå½¢è£œé–“ã‚’ä½¿ã£ã¦ã€ã‚«ãƒ¡ãƒ©ã‚’ç›®çš„ã®å ´æ‰€ã«å‹•ã‹ã™
+        //Lerpãƒ¡ã‚½ãƒƒãƒ‰ï¼ˆä»Šã®ä½ç½®ã€ã‚´ãƒ¼ãƒ«ã¨ã™ã¹ãä½ç½®ã€å‰²åˆï¼‰
         transform.position = Vector3.Lerp(transform.position,player.transform.position - diff, followSpeed * Time.deltaTime);
-
-        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 }
