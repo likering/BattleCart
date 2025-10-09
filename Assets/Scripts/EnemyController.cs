@@ -13,9 +13,18 @@ public class EnemyController : MonoBehaviour
     public float deletePosY = -10f;//削除される基準のY座標値
     public bool useGravity;//重力に絞られるか空を飛ぶかのフラグ
 
+   // GameObject camera;
+
+
     void Start()
     {
+        //camera = Camera.main.gameObject;
         controller = GetComponent<CharacterController>();
+
+        if(useGravity)
+        {
+            Destroy(gameObject,20);
+        }
     }
 
     // Update is called once per frame

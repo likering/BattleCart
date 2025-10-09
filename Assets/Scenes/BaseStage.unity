@@ -127,10 +127,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6233179983151516477, guid: 76d63124de7dd9343b3e4d822c39e12f, type: 3}
-      propertyPath: life
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6330983616393158871, guid: 76d63124de7dd9343b3e4d822c39e12f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -620,6 +616,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3647169952935748307, guid: cac87392ae4d8924b8decde96f9ac458, type: 3}
+      propertyPath: m_Value
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3995689704455304855, guid: cac87392ae4d8924b8decde96f9ac458, type: 3}
       propertyPath: m_fontStyle
       value: 1
@@ -627,6 +627,10 @@ PrefabInstance:
     - target: {fileID: 4391862769565773284, guid: cac87392ae4d8924b8decde96f9ac458, type: 3}
       propertyPath: m_fontStyle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142051653935708075, guid: cac87392ae4d8924b8decde96f9ac458, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5142051653935708075, guid: cac87392ae4d8924b8decde96f9ac458, type: 3}
       propertyPath: m_AnchorMax.y

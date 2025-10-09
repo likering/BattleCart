@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,12 +28,23 @@ public class PlayerController : MonoBehaviour
 
     public GameObject boms;
 
-    AudioSource audio;
-    public AudioClip Se_shot;
-    public AudioClip Se_damege;
-    public AudioClip Se_jump;
+    private AudioSource audio;
+    public AudioClip se_shot;
+    public AudioClip se_damege;
+    public AudioClip se_jump;
 
+    void Awake()
+    {
+        // このゲームオブジェクトにアタッチされているAudioSourceコンポーネントを取得して、
+        // audio変数に代入する
+        audio = GetComponent<AudioSource>();
 
+        // 念のため、取得できなかった場合にエラーを出すようにしておくと親切です
+        if (audio == null)
+        {
+            Debug.LogError("PlayerControllerにAudioSourceコンポーネントがアタッチされていません。");
+        }
+    }
     void Start()
     {
         //ゲームステータスがplayingの時のみ左右に動かせる
@@ -189,13 +199,13 @@ public class PlayerController : MonoBehaviour
         switch (type)
         {
             case SEType.Shot:
-                audio.PlayOneShot(Se_shot);
+                audio.PlayOneShot(se_shot);
                 break;
             case SEType.Damage:
-                audio.PlayOneShot(Se_damege);
+                audio.PlayOneShot(se_damege);
                 break;
             case SEType.Jump:
-                audio.PlayOneShot(Se_jump);
+                audio.PlayOneShot(se_jump);
                 break;
         }
     }

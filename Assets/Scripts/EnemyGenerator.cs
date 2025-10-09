@@ -64,8 +64,10 @@ public class EnemyGenerator : MonoBehaviour
 
         //いったん生成位置情報ｖの高さはEnemyGeneratorと同じ位置
         Vector3 v = new Vector3(posX, transform.position.y, transform.position.z);
+
         //もしisSkyが０なら空中座標
         if (isSky == 0) v.y = 1;
+
         //プレハブ化した危険車を、ジェネレーターのその時のZの位置に、危険車の向きそのままに生成する
         GameObject obj = Instantiate(dangerPrefab[isSky], v, dangerPrefab[isSky].transform.rotation);
     }
