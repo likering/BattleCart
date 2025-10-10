@@ -11,7 +11,8 @@
 
 [ゲームのサンプルプレイ](https://likering.github.io/BattleCart_web/)
 
-![ゲーム画面](images/works/Image20251009104941.jpg)
+![ゲーム画面]
+![Image20251009104941](https://github.com/user-attachments/assets/1d8d9d4a-1d3f-4cbb-a6a4-7f165f923701)
 
 ### 操作方法
 * Aキー（左キー）：レーンを左に移動
